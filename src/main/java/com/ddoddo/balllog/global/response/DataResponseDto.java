@@ -1,5 +1,6 @@
 package com.ddoddo.balllog.global.response;
 
+import com.ddoddo.balllog.global.exception.ErrorCode;
 import lombok.Getter;
 
 @Getter
