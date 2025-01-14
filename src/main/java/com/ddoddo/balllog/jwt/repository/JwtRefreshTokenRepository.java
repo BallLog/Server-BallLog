@@ -1,6 +1,6 @@
 package com.ddoddo.balllog.jwt.repository;
 
-import com.ddoddo.balllog.jwt.entity.JwtRefreshToken;
+import com.ddoddo.balllog.jwt.model.JwtRefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

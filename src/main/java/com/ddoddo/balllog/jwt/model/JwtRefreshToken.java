@@ -1,7 +1,7 @@
-package com.ddoddo.balllog.jwt.entity;
+package com.ddoddo.balllog.jwt.model;
 
 import com.ddoddo.balllog.global.entity.BaseTimeEntity;
-import com.ddoddo.balllog.user.entity.User;
+import com.ddoddo.balllog.user.model.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

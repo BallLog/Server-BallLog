@@ -4,7 +4,8 @@ import com.ddoddo.balllog.auth.userdetails.BallLogUserDetails;
 import com.ddoddo.balllog.global.exception.AuthorizationFailedException;
 import com.ddoddo.balllog.global.exception.ErrorCode;
 import com.ddoddo.balllog.jwt.dto.JwtResponseDto;
-import com.ddoddo.balllog.user.entity.User;
+import com.ddoddo.balllog.user.model.SocialType;
+import com.ddoddo.balllog.user.model.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -93,7 +94,7 @@ public class JwtTokenProvider {
         User user = User.builder()
                 .id(Long.parseLong(claims.getSubject()))
                 .socialId(claims.get(SOCIAL_ID_KEY).toString())
-                .socialType(User.SocialType.fromString(claims.get(SOCIAL_TYPE_KEY).toString()))
+                .socialType(SocialType.fromString(claims.get(SOCIAL_TYPE_KEY).toString()))
                 .build();
 
         BallLogUserDetails principal = new BallLogUserDetails(user);
