@@ -1,6 +1,6 @@
-package com.ddoddo.balllog.auth.service;
+package com.ddoddo.balllog.infra.service;
 
-import com.ddoddo.balllog.auth.model.KakaoResource;
+import com.ddoddo.balllog.infra.model.KakaoResource;
 import com.ddoddo.balllog.global.exception.InternalServerException;
 import com.ddoddo.balllog.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;

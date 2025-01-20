@@ -1,4 +1,4 @@
-package com.ddoddo.balllog.auth.model;
+package com.ddoddo.balllog.infra.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;

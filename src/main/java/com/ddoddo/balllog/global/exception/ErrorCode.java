@@ -40,6 +40,16 @@ public enum ErrorCode {
     KAKAO_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "카카오 서버 연동에 오류가 발생했습니다."),
 
     /**
+     * Apple Error
+     */
+    APPLE_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "애플 서버 연동에 오류가 발생했습니다."),
+    APPLE_FAILED_TO_GET_TOKEN(HttpStatus.INTERNAL_SERVER_ERROR, "애플 토큰을 가져오는데 실패했습니다."),
+    APPLE_FAILED_TO_GET_PUBLIC_KEY(HttpStatus.INTERNAL_SERVER_ERROR, "애플 공개키를 가져오는데 실패했습니다."),
+    APPLE_FAILED_TO_GET_INFO(HttpStatus.INTERNAL_SERVER_ERROR, "애플 계정 정보를 가져오는데 실패했습니다."),
+    APPLE_FAILED_TO_GET_CLIENT_SECRET(HttpStatus.INTERNAL_SERVER_ERROR, "애플 client_secret을 가져오는데 실패했습니다."),
+    APPLE_FAILED_TO_REVOKE_ACCOUNT(HttpStatus.INTERNAL_SERVER_ERROR, "애플 계정을 해지하는데 실패했습니다."),
+
+    /**
      * User Error
      */
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다."),

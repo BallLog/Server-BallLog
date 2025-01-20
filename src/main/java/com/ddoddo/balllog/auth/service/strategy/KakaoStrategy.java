@@ -1,7 +1,7 @@
 package com.ddoddo.balllog.auth.service.strategy;
 
-import com.ddoddo.balllog.auth.model.KakaoResource;
-import com.ddoddo.balllog.auth.service.KakaoService;
+import com.ddoddo.balllog.infra.model.KakaoResource;
+import com.ddoddo.balllog.infra.service.KakaoService;
 import com.ddoddo.balllog.user.model.KakaoAccount;
 import com.ddoddo.balllog.user.model.SocialType;
 import com.ddoddo.balllog.user.model.User;
@@ -25,7 +25,7 @@ public class KakaoStrategy implements AuthStrategy {
     public User signIn(String providerAccessToken) {
         KakaoResource kakaoResource = kakaoService.getKaKaoAccountInfo(providerAccessToken);
 
-        Optional<User> user = findMemberById(kakaoResource.getId());
+        Optional<User> user = findUserById(kakaoResource.getId());
         return user.orElseGet(() -> signUp(kakaoResource));
     }
 
@@ -43,7 +43,7 @@ public class KakaoStrategy implements AuthStrategy {
         return savedUser;
     }
 
-    private Optional<User> findMemberById(String id) {
+    private Optional<User> findUserById(String id) {
         return kakaoAccountRepository.findById(id).map(KakaoAccount::getUser);
     }
 
