@@ -4,8 +4,8 @@ import com.ddoddo.balllog.auth.userdetails.BallLogUserDetails;
 import com.ddoddo.balllog.global.exception.AuthorizationFailedException;
 import com.ddoddo.balllog.global.exception.ErrorCode;
 import com.ddoddo.balllog.jwt.JwtTokenProvider;
-import com.ddoddo.balllog.jwt.dto.JwtRequestDto;
-import com.ddoddo.balllog.jwt.dto.JwtResponseDto;
+import com.ddoddo.balllog.jwt.dto.JwtRequest;
+import com.ddoddo.balllog.jwt.dto.JwtResponse;
 import com.ddoddo.balllog.jwt.model.JwtRefreshToken;
 import com.ddoddo.balllog.jwt.repository.JwtRefreshTokenRepository;
 import com.ddoddo.balllog.user.model.User;
@@ -23,12 +23,12 @@ public class JwtTokenService {
     private final UserRepository userRepository;
 
     @Transactional
-    public JwtResponseDto issueToken(User user) {
+    public JwtResponse issueToken(User user) {
         refreshTokenRepository.findFirstByUserId(user.getId()).ifPresent(refreshTokenRepository::delete);
         refreshTokenRepository.flush();
 
         BallLogUserDetails userDetails = new BallLogUserDetails(user);
-        JwtResponseDto tokenDto = tokenProvider.generateToken(userDetails);
+        JwtResponse tokenDto = tokenProvider.generateToken(userDetails);
 
         JwtRefreshToken refreshToken = JwtRefreshToken.builder()
                 .user(user)
@@ -38,7 +38,7 @@ public class JwtTokenService {
         return tokenDto;
     }
 
-    public JwtResponseDto reissueByRefreshToken(JwtRequestDto tokenRequestDto) {
+    public JwtResponse reissueByRefreshToken(JwtRequest tokenRequestDto) {
         // 1. Refresh Token 검증
         if (!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
             throw new AuthorizationFailedException(ErrorCode.INVALID_REFRESH_TOKEN);
@@ -59,7 +59,7 @@ public class JwtTokenService {
                 .orElseThrow(() -> new RuntimeException("회원을 찾을 수 없습니다."));
         BallLogUserDetails userDetails = new BallLogUserDetails(user);
 
-        JwtResponseDto tokenDto = tokenProvider.generateToken(userDetails);
+        JwtResponse tokenDto = tokenProvider.generateToken(userDetails);
         JwtRefreshToken newJwt = JwtRefreshToken.builder()
                 .user(user)
                 .refreshToken(tokenDto.getRefreshToken())
