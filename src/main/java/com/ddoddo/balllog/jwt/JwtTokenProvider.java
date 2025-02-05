@@ -3,7 +3,7 @@ package com.ddoddo.balllog.jwt;
 import com.ddoddo.balllog.auth.userdetails.BallLogUserDetails;
 import com.ddoddo.balllog.global.exception.AuthorizationFailedException;
 import com.ddoddo.balllog.global.exception.ErrorCode;
-import com.ddoddo.balllog.jwt.dto.JwtResponseDto;
+import com.ddoddo.balllog.jwt.dto.JwtResponse;
 import com.ddoddo.balllog.user.model.SocialType;
 import com.ddoddo.balllog.user.model.User;
 import io.jsonwebtoken.*;
@@ -42,7 +42,7 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public JwtResponseDto generateToken(BallLogUserDetails userDetails) {
+    public JwtResponse generateToken(BallLogUserDetails userDetails) {
         long now = System.currentTimeMillis();
         Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
         Date refreshTokenExpiresIn = new Date(now + REFRESH_TOKEN_EXPIRE_TIME);
@@ -64,7 +64,7 @@ public class JwtTokenProvider {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
-        return JwtResponseDto.builder()
+        return JwtResponse.builder()
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)

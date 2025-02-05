@@ -1,6 +1,7 @@
 package com.ddoddo.balllog.user.model;
 
 import com.ddoddo.balllog.global.entity.BaseTimeEntity;
+import com.ddoddo.balllog.kbo.model.KboTeam;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +23,8 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int kboTeamId;
+    @ManyToOne
+    private KboTeam kboTeam;
 
     @Column(unique = true, nullable = false)
     private String socialId;
@@ -44,14 +46,6 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
-    private LocalDateTime deletedAt;
-
     @Builder
     public User(Long id, String socialId, SocialType socialType) {
         this.id = id;
@@ -65,6 +59,10 @@ public class User extends BaseTimeEntity {
         this.role = role != null ? role : UserRole.USER;
         this.status = Status.ACTIVE;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public void updateKboTeam(KboTeam kboTeam) {
+        this.kboTeam = kboTeam;
     }
 
 }

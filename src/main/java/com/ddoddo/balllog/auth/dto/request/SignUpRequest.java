@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class SignUpRequestDto {
+public class SignUpRequest {
     SocialType socialType;
     Object data;
 }
