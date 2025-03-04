@@ -21,6 +21,6 @@ public class BallLogController {
     @PostMapping("")
     public DataResponseDto<BallLogResponse> createBallLog(@RequestBody @Valid BallLogRequest ballLogRequest) {
 
-        return null;
+        return DataResponseDto.from(ballLogService.createBallLog(ballLogRequest));
     }
 }

@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,9 +44,9 @@ public class BallLog {
     @JoinColumn(name = "opposing_team_id")
     private KboTeam opposingTeam;
 
-    private int scoreCheering;
+    private Integer scoreCheering;
 
-    private int scoreOpposing;
+    private Integer scoreOpposing;
 
     // todo: converter 구현
     @Enumerated(EnumType.STRING)
@@ -57,14 +58,15 @@ public class BallLog {
 
     private LocalDateTime matchDate;
 
-    @OneToMany
-    private List<BallLogPhoto> photos;
+    @Builder.Default
+    @OneToMany(mappedBy = "ballLog")
+    private List<BallLogPhoto> photos = new ArrayList<>();
 
     private InfieldOutfield field;
 
-    private int blockNumber;
+    private Integer blockNumber;
 
-    private int rowNumber;
+    private Integer rowNumber;
 
     private HomeAway homeAway;
 
