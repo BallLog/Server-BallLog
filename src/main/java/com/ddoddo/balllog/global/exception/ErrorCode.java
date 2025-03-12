@@ -59,8 +59,12 @@ public enum ErrorCode {
     /**
      * KBO Error
      */
-    KBO_TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, "구단 정보를 찾을 수 없습니다.")
+    KBO_TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, "구단 정보를 찾을 수 없습니다."),
 
+    /**
+     * Stadium Error
+     */
+    STADIUM_NOT_FOUND(HttpStatus.NOT_FOUND, "경기구장 정보를 찾을 수 없습니다.")
     ;
 
     private final HttpStatus httpStatus;

@@ -19,7 +19,9 @@ public class BallLogAdapter {
                 .scoreCheering(ballLogDto.scoreCheering())
                 .scoreOpposing(ballLogDto.scoreOpposing())
                 .matchResult(ballLogDto.matchResult())
+                .title(ballLogDto.title())
                 .content(ballLogDto.content())
+                .stadium(ballLogDto.stadium())
                 .matchDate(ballLogDto.matchDate())
                 .build()
         );

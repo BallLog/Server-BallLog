@@ -3,6 +3,7 @@ package com.ddoddo.balllog.balllog.adapter.dto;
 import com.ddoddo.balllog.balllog.model.BallLogPhoto;
 import com.ddoddo.balllog.balllog.model.MatchResult;
 import com.ddoddo.balllog.kbo.model.KboTeam;
+import com.ddoddo.balllog.kbo.model.Stadium;
 import com.ddoddo.balllog.user.model.User;
 import lombok.Builder;
 
@@ -18,19 +19,23 @@ public record BallLogDto(
     Integer scoreCheering,
     Integer scoreOpposing,
     MatchResult matchResult,
+    String title,
     String content,
+    Stadium stadium,
     LocalDateTime matchDate,
     List<BallLogPhoto> photos
 ) {
 
-    public static BallLogDto of(User user, KboTeam cheeringTeam, Integer scoreCheering, KboTeam opposingTeam, Integer scoreOpposing, String content, LocalDateTime matchDate) {
+    public static BallLogDto of(User user, KboTeam cheeringTeam, Integer scoreCheering, KboTeam opposingTeam, Integer scoreOpposing, String title, String content, Stadium stadium, LocalDateTime matchDate) {
         return BallLogDto.builder()
                 .user(user)
                 .cheeringTeam(cheeringTeam)
                 .scoreCheering(scoreCheering)
                 .opposingTeam(opposingTeam)
                 .scoreOpposing(scoreOpposing)
+                .title(title)
                 .content(content)
+                .stadium(stadium)
                 .matchDate(matchDate)
                 .matchResult(MatchResult.fromScores(scoreCheering, scoreOpposing))
                 .build();

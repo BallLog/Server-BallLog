@@ -10,6 +10,7 @@ import com.ddoddo.balllog.balllog.dto.response.BallLogResponse;
 import com.ddoddo.balllog.balllog.model.BallLog;
 import com.ddoddo.balllog.balllog.model.BallLogPhoto;
 import com.ddoddo.balllog.kbo.adapter.KboTeamAdapter;
+import com.ddoddo.balllog.kbo.adapter.StadiumAdapter;
 import com.ddoddo.balllog.user.model.User;
 import com.ddoddo.balllog.user.service.UserService;
 import jakarta.transaction.Transactional;
@@ -29,6 +30,7 @@ public class BallLogService {
     private final UserService userService;
 
     private final KboTeamAdapter kboTeamAdapter;
+    private final StadiumAdapter stadiumAdapter;
     private final BallLogAdapter ballLogAdapter;
     private final BallLogPhotoAdapter ballLogPhotoAdapter;
 
@@ -41,7 +43,9 @@ public class BallLogService {
                 request.scoreCheering(),
                 kboTeamAdapter.findById(request.opposingTeamId()),
                 request.scoreOpposing(),
+                request.title(),
                 request.content(),
+                stadiumAdapter.findById(request.stadiumId()),
                 request.matchDate()
         );
         BallLog ballLog = ballLogAdapter.save(ballLogDto);
