@@ -58,7 +58,6 @@ public class User extends BaseTimeEntity {
         this.socialType = socialType;
         this.role = role != null ? role : UserRole.USER;
         this.status = Status.ACTIVE;
-        this.createdAt = LocalDateTime.now();
     }
 
     public void updateKboTeam(KboTeam kboTeam) {
