@@ -1,5 +1,6 @@
 package com.ddoddo.balllog.balllog.model;
 
+import com.ddoddo.balllog.balllog.adapter.dto.BallLogDto;
 import com.ddoddo.balllog.kbo.model.KboTeam;
 import com.ddoddo.balllog.kbo.model.Stadium;
 import com.ddoddo.balllog.kbo.model.StadiumSeatInfo;
@@ -77,4 +78,37 @@ public class BallLog {
 
     private LocalDateTime deletedAt;
 
+    public void update(BallLogDto ballLogDto) {
+        if (ballLogDto.cheeringTeam() != null) {
+            this.cheeringTeam = ballLogDto.cheeringTeam();
+        }
+
+        if (ballLogDto.opposingTeam() != null) {
+            this.opposingTeam = ballLogDto.opposingTeam();
+        }
+
+        if (ballLogDto.scoreCheering() != null) {
+            this.scoreCheering = ballLogDto.scoreCheering();
+        }
+
+        if (ballLogDto.scoreOpposing() != null) {
+            this.scoreOpposing = ballLogDto.scoreOpposing();
+        }
+
+        if (ballLogDto.title() != null) {
+            this.title = ballLogDto.title();
+        }
+
+        if (ballLogDto.content() != null) {
+            this.content = ballLogDto.content();
+        }
+
+        if (ballLogDto.stadium() != null) {
+            this.stadium = ballLogDto.stadium();
+        }
+
+        if (ballLogDto.matchDate() != null) {
+            this.matchDate = ballLogDto.matchDate();
+        }
+    }
 }

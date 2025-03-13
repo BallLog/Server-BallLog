@@ -4,6 +4,7 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Target({
@@ -13,7 +14,7 @@ import java.lang.annotation.Target;
         java.lang.annotation.ElementType.ANNOTATION_TYPE,
         java.lang.annotation.ElementType.CONSTRUCTOR,
         java.lang.annotation.ElementType.TYPE_USE})
-@Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {CustomSizeValidator.class})
 public @interface CustomSize {
 

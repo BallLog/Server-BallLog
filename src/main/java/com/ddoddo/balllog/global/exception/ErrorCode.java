@@ -57,6 +57,11 @@ public enum ErrorCode {
     SOCIAL_TYPE_NOT_FOUND(HttpStatus.NOT_FOUND, "소셜 로그인 유형을 다시 확인해주세요."),
 
     /**
+     * BallLog Error
+     */
+    BALL_LOG_NOT_FOUND(HttpStatus.NOT_FOUND, "볼로그 정보를 찾을 수 없습니다."),
+
+    /**
      * KBO Error
      */
     KBO_TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, "구단 정보를 찾을 수 없습니다."),

@@ -3,6 +3,8 @@ package com.ddoddo.balllog.balllog.adapter;
 import com.ddoddo.balllog.balllog.adapter.dto.BallLogDto;
 import com.ddoddo.balllog.balllog.model.BallLog;
 import com.ddoddo.balllog.balllog.repository.BallLogRepository;
+import com.ddoddo.balllog.global.exception.EntityNotFoundException;
+import com.ddoddo.balllog.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,20 @@ public class BallLogAdapter {
                 .matchDate(ballLogDto.matchDate())
                 .build()
         );
+    }
+
+    public BallLog findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.BALL_LOG_NOT_FOUND));
+    }
+
+    public BallLog update(Long id, BallLogDto ballLogDto) {
+        BallLog ballLog = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.BALL_LOG_NOT_FOUND));
+
+        ballLog.update(ballLogDto);
+
+        return repository.save(ballLog);
     }
 
 }
