@@ -1,11 +1,16 @@
 package com.ddoddo.balllog.kbo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+@Slf4j
+@Getter
 @Entity
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Stadium {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
