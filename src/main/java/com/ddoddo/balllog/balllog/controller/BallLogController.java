@@ -50,4 +50,11 @@ public class BallLogController {
     ) {
         return DataResponseDto.from(ballLogService.updateBallLog(id, ballLogPatchRequest));
     }
+
+    @DeleteMapping("/{id}")
+    public DataResponseDto<String> deleteBallLog(
+            @PathVariable Long id
+    ) {
+        return DataResponseDto.from(ballLogService.deleteBallLog(id));
+    }
 }

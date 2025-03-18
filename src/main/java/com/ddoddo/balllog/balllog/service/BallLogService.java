@@ -12,6 +12,7 @@ import com.ddoddo.balllog.balllog.dto.response.BallLogPhotoResponse;
 import com.ddoddo.balllog.balllog.dto.response.BallLogSimpleResponse;
 import com.ddoddo.balllog.balllog.model.BallLog;
 import com.ddoddo.balllog.balllog.model.MatchResult;
+import com.ddoddo.balllog.infra.service.FileService;
 import com.ddoddo.balllog.kbo.adapter.KboTeamAdapter;
 import com.ddoddo.balllog.kbo.adapter.StadiumAdapter;
 import com.ddoddo.balllog.user.model.User;
@@ -32,6 +33,7 @@ import java.util.List;
 public class BallLogService {
 
     private final UserService userService;
+    private final FileService fileService;
 
     private final KboTeamAdapter kboTeamAdapter;
     private final StadiumAdapter stadiumAdapter;
@@ -97,6 +99,22 @@ public class BallLogService {
         }
 
         return  BallLogFullResponse.of(ballLog, ballLogPhotoResponseList);
+    }
+
+    public String deleteBallLog(Long id) {
+        User user = userService.getUser();
+        BallLog ballLog = ballLogAdapter.findById(id);
+
+        ballLog.getPhotos().forEach(
+                photo -> {
+                    fileService.deleteFile(photo.getImgUrl());
+                    ballLogPhotoAdapter.delete(photo);
+                }
+        );
+
+        ballLogAdapter.delete(ballLog);
+
+        return "볼로그가 삭제되었습니다.";
     }
 
     private BallLogDto createBallLogDto(User user, BallLogRequest request) {

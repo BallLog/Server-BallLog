@@ -55,4 +55,8 @@ public class BallLogAdapter {
         return repository.save(ballLog);
     }
 
+    public void delete(BallLog ballLog) {
+        repository.delete(ballLog);
+    }
+
 }

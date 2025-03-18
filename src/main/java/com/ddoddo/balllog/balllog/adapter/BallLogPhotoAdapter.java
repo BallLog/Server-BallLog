@@ -55,4 +55,8 @@ public class BallLogPhotoAdapter {
         return saveBallLogPhotos(photoDtoList);
     }
 
+    public void delete(BallLogPhoto photo) {
+        repository.delete(photo);
+    }
+
 }
