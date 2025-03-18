@@ -1,10 +1,16 @@
 package com.ddoddo.balllog.balllog.repository;
 
+import com.ddoddo.balllog.balllog.model.BallLog;
 import com.ddoddo.balllog.balllog.model.BallLogPhoto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BallLogPhotoRepository extends JpaRepository<BallLogPhoto, Long> {
+    Optional<BallLogPhoto> findTopByBallLogOrderBySequenceAsc(BallLog ballLog);
+
     List<BallLogPhoto> findByBallLogId(Long id);
+
+    List<BallLogPhoto> findAllByBallLog(BallLog ballLog);
 }
