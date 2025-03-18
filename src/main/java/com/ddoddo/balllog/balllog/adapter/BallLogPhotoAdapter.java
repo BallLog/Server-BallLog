@@ -2,6 +2,7 @@ package com.ddoddo.balllog.balllog.adapter;
 
 import com.ddoddo.balllog.balllog.adapter.dto.BallLogPhotoDto;
 import com.ddoddo.balllog.balllog.dto.response.BallLogPhotoResponse;
+import com.ddoddo.balllog.balllog.model.BallLog;
 import com.ddoddo.balllog.balllog.model.BallLogPhoto;
 import com.ddoddo.balllog.balllog.repository.BallLogPhotoRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,19 @@ public class BallLogPhotoAdapter {
                 .toList();
     }
 
+    public List<BallLogPhotoResponse> findAllByBallLog(BallLog ballLog) {
+
+        return repository.findAllByBallLog(ballLog).stream()
+                .map(BallLogPhotoResponse::of)
+                .toList();
+    }
+
+    public String findFirstPhotoUrlByBallLog(BallLog ballLog) {
+        return repository.findTopByBallLogOrderBySequenceAsc(ballLog)
+                .map(BallLogPhoto::getImgUrl)
+                .orElse(null);
+    }
+
     public List<BallLogPhotoResponse> updateBallLogPhotos(Long ballLogId, List<BallLogPhotoDto> photoDtoList) {
         List<BallLogPhoto> existingPhotos = repository.findByBallLogId(ballLogId);
 
@@ -39,15 +53,6 @@ public class BallLogPhotoAdapter {
         }
 
         return saveBallLogPhotos(photoDtoList);
-    }
-
-    private BallLogPhoto save(BallLogPhotoDto photoDto) {
-        return repository.save(BallLogPhoto.builder()
-                .ballLog(photoDto.ballLog())
-                .imgUrl(photoDto.imgUrl())
-                .sequence(photoDto.sequence())
-                .build()
-        );
     }
 
 }
