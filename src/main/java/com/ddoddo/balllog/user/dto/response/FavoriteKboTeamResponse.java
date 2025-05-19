@@ -6,7 +6,7 @@ import lombok.Builder;
 @Builder
 public class FavoriteKboTeamResponse {
     private Long userId;
-    private Long kboTeamId;
+    private Integer kboTeamId;
     private String kboTeamName;
 
     public static FavoriteKboTeamResponse from(User user) {

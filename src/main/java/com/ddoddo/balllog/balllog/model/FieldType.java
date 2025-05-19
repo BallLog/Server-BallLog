@@ -1,5 +1,5 @@
 package com.ddoddo.balllog.balllog.model;
 
-public enum InfieldOutfield {
+public enum FieldType {
     INFIELD, OUTFIELD
 }

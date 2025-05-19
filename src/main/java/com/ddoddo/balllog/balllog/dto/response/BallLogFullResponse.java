@@ -9,14 +9,14 @@ import java.util.List;
 
 @Builder
 public record BallLogFullResponse(
-    Long cheeringTeamId,
-    Long opposingTeamId,
+    Integer cheeringTeamId,
+    Integer opposingTeamId,
     Integer scoreCheering,
     Integer scoreOpposing,
     String title,
     String content,
     MatchResult matchResult,
-    Long stadiumId,
+    Integer stadiumId,
     LocalDateTime matchDate,
     List<BallLogPhotoResponse> photos
 ) {

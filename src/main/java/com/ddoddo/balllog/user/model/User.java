@@ -24,11 +24,13 @@ public class User extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "kbo_team_id")
     private KboTeam kboTeam;
 
     @Column(unique = true, nullable = false)
     private String socialId;
 
+    @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
     private String password;
@@ -44,6 +46,7 @@ public class User extends BaseTimeEntity {
     private Status status;
 
     @Enumerated(EnumType.STRING)
+    @JoinColumn(name = "role")
     private UserRole role;
 
     @Builder
@@ -63,5 +66,4 @@ public class User extends BaseTimeEntity {
     public void updateKboTeam(KboTeam kboTeam) {
         this.kboTeam = kboTeam;
     }
-
 }

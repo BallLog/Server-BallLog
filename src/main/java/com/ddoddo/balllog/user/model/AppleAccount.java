@@ -20,7 +20,7 @@ public class AppleAccount extends BaseTimeEntity {
     @Column(nullable = false)
     private String refreshToken;
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 }

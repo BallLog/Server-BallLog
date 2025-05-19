@@ -14,5 +14,5 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Stadium {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 }

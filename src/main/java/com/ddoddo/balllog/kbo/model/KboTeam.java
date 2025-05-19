@@ -18,7 +18,7 @@ import java.util.List;
 public class KboTeam extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String sponsorName;
 
@@ -37,7 +37,7 @@ public class KboTeam extends BaseTimeEntity {
     // todo Image 연관관계 Mapping
     private long imageId;
 
-    @OneToMany
-    private List<User> userList;
+//    @OneToMany
+//    private List<User> userList;
 
 }

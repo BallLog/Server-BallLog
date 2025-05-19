@@ -41,6 +41,11 @@ public class SecurityConfig {
                 // 인증/인가
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(
+                                "/api/v1/auth/sign-in/**",
+                                "/api/v1/auth/reissue",
+                                "/api/v1/auth/withdraw/kakao"
+                        ).permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
