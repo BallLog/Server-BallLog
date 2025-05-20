@@ -66,4 +66,9 @@ public class User extends BaseTimeEntity {
     public void updateKboTeam(KboTeam kboTeam) {
         this.kboTeam = kboTeam;
     }
+
+    public void withdraw() {
+        this.status = Status.WITHDRAWAL;
+    }
+
 }

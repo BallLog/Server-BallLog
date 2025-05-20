@@ -28,4 +28,9 @@ public class AuthController {
     public DataResponseDto<JwtResponse> reissue(@RequestBody JwtRequest jwtRequest) {
         return DataResponseDto.from(jwtTokenService.reissueByRefreshToken(jwtRequest));
     }
+
+    @DeleteMapping("/withdraw")
+    public DataResponseDto<String> withdraw() {
+        return DataResponseDto.from(authService.withdraw());
+    }
 }
