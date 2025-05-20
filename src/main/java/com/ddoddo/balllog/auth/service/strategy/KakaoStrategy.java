@@ -48,8 +48,11 @@ public class KakaoStrategy implements AuthStrategy {
     }
 
     @Override
-    public void withdraw(User member) {
+    public void withdraw(User user) {
+        KakaoAccount kakaoAccount = kakaoAccountRepository.findByUser(user);
 
+        kakaoService.unlinkKakaoAccount(kakaoAccount.getId());
+        kakaoAccountRepository.delete(kakaoAccount);
     }
 
 }

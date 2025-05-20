@@ -53,7 +53,12 @@ public class AppleStrategy implements AuthStrategy{
     }
 
     @Override
-    public void withdraw(User member) {
+    public void withdraw(User user) {
+        AppleAccount appleAccount = appleAccountRepository.findByUser(user);
+        String appleRefreshToken = appleAccount.getRefreshToken();
+
+        appleService.revokeAppleAccount(appleRefreshToken);
+        appleAccountRepository.delete(appleAccount);
 
     }
 }
