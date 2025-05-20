@@ -55,6 +55,8 @@ public class AppleService {
     private String appleAudienceUri;
     @Value("${security.oauth2.provider.apple.key-uri}")
     private String appleKeyUri;
+    @Value("${security.oauth2.provider.apple.revoke-uri}")
+    private String appleRevokeUri;
     @Value("${security.oauth2.provider.apple.client-id}")
     private String appleClientId;
     @Value("${security.oauth2.provider.apple.key-id}")
@@ -173,5 +175,26 @@ public class AppleService {
         }
     }
 
+    public void revokeAppleAccount(String appleRefreshToken) {
+        try {
+            WebClient webClient = WebClient.builder()
+                    .baseUrl(appleRevokeUri)
+                    .build();
+
+            MultiValueMap<String, String> bodyData = new LinkedMultiValueMap<>();
+            bodyData.add("client_id", appleClientId);
+            bodyData.add("client_secret", getAppleClientSecret());
+            bodyData.add("token", appleRefreshToken);
+            bodyData.add("token_type_hint", "refresh_token");
+
+            webClient.post()
+                    .body(BodyInserters.fromFormData(bodyData))
+                    .retrieve()
+                    .bodyToMono(Void.class)
+                    .block();
+        } catch (Exception e) {
+            throw new InternalServerException(ErrorCode.APPLE_SERVER_ERROR);
+        }
+    }
 
 }

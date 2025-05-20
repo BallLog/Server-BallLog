@@ -69,4 +69,10 @@ public class JwtTokenService {
 
         return tokenDto;
     }
+
+    public void removeJwtOnAccountDeletion(User user) {
+        refreshTokenRepository
+                .findByUser(user)
+                .ifPresent(refreshTokenRepository::delete);
+    }
 }
