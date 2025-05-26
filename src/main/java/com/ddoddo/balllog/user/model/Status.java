@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public enum Status {
     ACTIVE(1, "활성 회원"),
     INACTIVE(2, "비활성 회원"),
@@ -15,8 +16,6 @@ public enum Status {
 
     private int value;
     private String description;
-
-    Status(int value, String description) {}
 
     public static Status fromValue(int value) {
         for (Status status : Status.values()) {

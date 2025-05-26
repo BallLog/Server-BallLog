@@ -43,6 +43,7 @@ public class User extends BaseTimeEntity {
 
     private int level;
 
+    @Convert(converter = Status.StatusConverter.class)
     private Status status;
 
     @Enumerated(EnumType.STRING)

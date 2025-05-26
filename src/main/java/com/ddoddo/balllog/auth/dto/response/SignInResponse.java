@@ -4,7 +4,9 @@ import com.ddoddo.balllog.jwt.dto.JwtResponse;
 import com.ddoddo.balllog.user.model.Status;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SignInResponse {
