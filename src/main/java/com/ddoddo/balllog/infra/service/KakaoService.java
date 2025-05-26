@@ -51,7 +51,7 @@ public class KakaoService {
     public void unlinkKakaoAccount(String kakaoAccountId) {
         WebClient webClient = WebClient.builder()
                 .baseUrl(kakaoUnlinkUri)
-                .defaultHeader(HttpHeaders.AUTHORIZATION, "KakaoAK" + kakaoAdminKey)
+                .defaultHeader(HttpHeaders.AUTHORIZATION, "KakaoAK " + kakaoAdminKey)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .build();
 
@@ -66,6 +66,7 @@ public class KakaoService {
                     .bodyToMono(String.class)
                     .block();
         } catch (WebClientException e) {
+            log.error("WebClientException 발생: {}", e.getMessage(), e); // 스택트레이스 포함
             throw new InternalServerException(ErrorCode.KAKAO_SERVER_ERROR);
         }
     }
