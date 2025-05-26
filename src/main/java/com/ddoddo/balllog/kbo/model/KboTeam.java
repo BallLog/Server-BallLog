@@ -35,7 +35,7 @@ public class KboTeam extends BaseTimeEntity {
     private String youtubeUrl;
 
     // todo Image 연관관계 Mapping
-    private long imageId;
+    private Long imageId;
 
 //    @OneToMany
 //    private List<User> userList;
