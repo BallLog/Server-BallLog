@@ -9,6 +9,7 @@ import java.util.List;
 
 @Builder
 public record BallLogFullResponse(
+    Long id,
     Integer cheeringTeamId,
     Integer opposingTeamId,
     Integer scoreCheering,
@@ -23,6 +24,7 @@ public record BallLogFullResponse(
 
     public static BallLogFullResponse of(BallLog ballLog, List<BallLogPhotoResponse> photos) {
         return  BallLogFullResponse.builder()
+                .id(ballLog.getId())
                 .cheeringTeamId(ballLog.getCheeringTeam().getId())
                 .opposingTeamId(ballLog.getOpposingTeam().getId())
                 .scoreCheering(ballLog.getScoreCheering())

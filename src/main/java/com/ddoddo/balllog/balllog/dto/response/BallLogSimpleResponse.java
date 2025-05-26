@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Builder
 public record BallLogSimpleResponse(
+        Long id,
         String cheeringTeamName,
         String opposingTeamName,
         Integer scoreCheering,
@@ -19,6 +20,7 @@ public record BallLogSimpleResponse(
 
     public static BallLogSimpleResponse of(BallLog ballLog, String thumbnailUrl) {
         return BallLogSimpleResponse.builder()
+                .id(ballLog.getId())
                 .cheeringTeamName(ballLog.getCheeringTeam().getTeamName())
                 .opposingTeamName(ballLog.getOpposingTeam().getTeamName())
                 .scoreCheering(ballLog.getScoreCheering())

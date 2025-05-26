@@ -98,6 +98,10 @@ public class BallLog extends BaseTimeEntity {
             this.scoreOpposing = ballLogDto.scoreOpposing();
         }
 
+        if (ballLogDto.matchResult() != null) {
+            this.matchResult = ballLogDto.matchResult();
+        }
+
         if (ballLogDto.title() != null) {
             this.title = ballLogDto.title();
         }
