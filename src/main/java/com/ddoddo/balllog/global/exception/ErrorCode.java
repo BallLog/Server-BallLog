@@ -21,7 +21,7 @@ public enum ErrorCode {
     API_NOT_FOUND(HttpStatus.NOT_FOUND, "요청한 API를 찾을 수 없습니다."),
     QUERY_PARAMETER_REQUIRED(HttpStatus.BAD_REQUEST, "쿼리 파라미터가 필요한 API입니다."),
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "입력값이 올바르지 않습니다."),
-
+    REQUEST_BODY_REQUIRED(HttpStatus.BAD_REQUEST, "필수 요청 Body가 누락되었습니다."),
 
     /**
      * Authorization Error
