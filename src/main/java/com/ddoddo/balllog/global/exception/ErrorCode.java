@@ -61,6 +61,7 @@ public enum ErrorCode {
      * BallLog Error
      */
     BALL_LOG_NOT_FOUND(HttpStatus.NOT_FOUND, "볼로그 정보를 찾을 수 없습니다."),
+    NOT_MY_CHEERING_TEAM(HttpStatus.BAD_REQUEST, "응원하는 팀의 ID 값이 잘못 되었습니다."),
 
     /**
      * KBO Error

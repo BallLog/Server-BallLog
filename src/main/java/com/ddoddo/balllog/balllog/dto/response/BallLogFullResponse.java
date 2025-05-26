@@ -26,6 +26,7 @@ public record BallLogFullResponse(
                 .cheeringTeamId(ballLog.getCheeringTeam().getId())
                 .opposingTeamId(ballLog.getOpposingTeam().getId())
                 .scoreCheering(ballLog.getScoreCheering())
+                .scoreOpposing(ballLog.getScoreOpposing())
                 .title(ballLog.getTitle())
                 .content(ballLog.getContent())
                 .matchDate(ballLog.getMatchDate())

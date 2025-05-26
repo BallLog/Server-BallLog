@@ -69,7 +69,7 @@ public class BallLog extends BaseTimeEntity {
 
     private Integer blockNumber;
 
-    private Integer rowNumber;
+    private Integer seatRowNumber;
 
     @Enumerated(EnumType.STRING)
     private HomeAway homeAway;

@@ -12,6 +12,8 @@ import com.ddoddo.balllog.balllog.dto.response.BallLogPhotoResponse;
 import com.ddoddo.balllog.balllog.dto.response.BallLogSimpleResponse;
 import com.ddoddo.balllog.balllog.model.BallLog;
 import com.ddoddo.balllog.balllog.model.MatchResult;
+import com.ddoddo.balllog.global.exception.BusinessException;
+import com.ddoddo.balllog.global.exception.ErrorCode;
 import com.ddoddo.balllog.infra.service.FileService;
 import com.ddoddo.balllog.kbo.adapter.KboTeamAdapter;
 import com.ddoddo.balllog.kbo.adapter.StadiumAdapter;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +45,8 @@ public class BallLogService {
 
     public BallLogFullResponse createBallLog(BallLogPostRequest request) {
         User user = userService.getUser();
+
+        validateCheeringTeam(user, request.cheeringTeamId());
 
         BallLogDto ballLogDto = createBallLogDto(user, request);
         BallLog ballLog = ballLogAdapter.save(ballLogDto);
@@ -87,6 +92,8 @@ public class BallLogService {
     public BallLogFullResponse updateBallLog(Long id, BallLogPatchRequest request) {
         User user = userService.getUser();
 
+        validateCheeringTeam(user, request.cheeringTeamId());
+
         BallLogDto ballLogDto = createBallLogDto(user, request);
         BallLog ballLog = ballLogAdapter.update(id, ballLogDto);
 
@@ -131,5 +138,9 @@ public class BallLogService {
         );
     }
 
-
+    private void validateCheeringTeam(User user, Integer cheeringTeamId) {
+        if (!Objects.equals(user.getKboTeam().getId(), cheeringTeamId)) {
+            throw new BusinessException(ErrorCode.NOT_MY_CHEERING_TEAM);
+        }
+    }
 }

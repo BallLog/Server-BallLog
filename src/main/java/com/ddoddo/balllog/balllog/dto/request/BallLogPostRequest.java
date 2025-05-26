@@ -11,10 +11,10 @@ import java.util.List;
 @Builder
 public record BallLogPostRequest(
     @NotNull(message = "응원 팀 ID는 필수 입력 값입니다.")
-    Long cheeringTeamId,
+    Integer cheeringTeamId,
 
     @NotNull(message = "상대 팀 ID는 필수 입력 값입니다.")
-    Long opposingTeamId,
+    Integer opposingTeamId,
 
     @NotNull(message = "응원 팀 점수는 필수 입력 값입니다.")
     Integer scoreCheering,
