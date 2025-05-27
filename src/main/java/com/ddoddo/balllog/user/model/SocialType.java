@@ -2,15 +2,17 @@ package com.ddoddo.balllog.user.model;
 
 import com.ddoddo.balllog.global.exception.ErrorCode;
 import com.ddoddo.balllog.global.exception.UnsupportedException;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
+@AllArgsConstructor
 public enum SocialType {
     KAKAO("KAKAO", "카카오"),
     APPLE("APPLE", "애플");
 
     private String type;
     private String description;
-
-    SocialType(String socialType, String description) {}
 
     public static SocialType fromString(String socialType) {
         for (SocialType st : SocialType.values()) {

@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class FavoriteKboTeamRequest {
-    private Long kboTeamId;
+    private Integer kboTeamId;
 }

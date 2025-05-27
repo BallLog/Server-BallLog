@@ -21,7 +21,7 @@ public enum ErrorCode {
     API_NOT_FOUND(HttpStatus.NOT_FOUND, "요청한 API를 찾을 수 없습니다."),
     QUERY_PARAMETER_REQUIRED(HttpStatus.BAD_REQUEST, "쿼리 파라미터가 필요한 API입니다."),
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "입력값이 올바르지 않습니다."),
-
+    REQUEST_BODY_REQUIRED(HttpStatus.BAD_REQUEST, "필수 요청 Body가 누락되었습니다."),
 
     /**
      * Authorization Error
@@ -33,6 +33,7 @@ public enum ErrorCode {
     ILLEGAL_JWT(HttpStatus.UNAUTHORIZED, "잘못된 JWT 토큰입니다."),
     INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 Refresh Token입니다."),
     AUTH_INFO_NOT_FOUND(HttpStatus.UNAUTHORIZED, "Security Context에 인증 정보가 없습니다."),
+    ACCESS_DENIED(HttpStatus.FORBIDDEN, "접근이 거부되었습니다."),
 
     /**
      * Kakao Error
@@ -60,6 +61,8 @@ public enum ErrorCode {
      * BallLog Error
      */
     BALL_LOG_NOT_FOUND(HttpStatus.NOT_FOUND, "볼로그 정보를 찾을 수 없습니다."),
+    NOT_MY_CHEERING_TEAM(HttpStatus.BAD_REQUEST, "응원하는 팀의 ID 값이 잘못 되었습니다."),
+    SAME_TEAM_CONFLICT(HttpStatus.BAD_REQUEST, "응원팀과 상대팀은 서로 달라야 합니다."),
 
     /**
      * KBO Error

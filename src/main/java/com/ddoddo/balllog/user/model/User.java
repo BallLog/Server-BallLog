@@ -7,7 +7,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 @Getter
@@ -20,11 +24,13 @@ public class User extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "kbo_team_id")
     private KboTeam kboTeam;
 
     @Column(unique = true, nullable = false)
     private String socialId;
 
+    @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
     private String password;
@@ -37,9 +43,11 @@ public class User extends BaseTimeEntity {
 
     private int level;
 
+    @Convert(converter = Status.StatusConverter.class)
     private Status status;
 
     @Enumerated(EnumType.STRING)
+    @JoinColumn(name = "role")
     private UserRole role;
 
     @Builder

@@ -15,7 +15,7 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 @Configuration
 public class AwsS3Config {
 
-    @Value("${cloud.aws.region.static}")
+    @Value("${cloud.aws.region}")
     private String regionName;
 
     @Bean

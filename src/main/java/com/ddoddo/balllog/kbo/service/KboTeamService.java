@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class KboTeamService {
     private final KboTeamAdapter kboTeamAdapter;
 
-    public KboTeam getKboTeamById(Long kboTeamId) {
+    public KboTeam getKboTeamById(Integer kboTeamId) {
         return kboTeamAdapter.findById(kboTeamId);
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class KboTeamAdapter {
     private final KboTeamRepository kboTeamRepository;
 
-    public KboTeam findById(Long id) {
+    public KboTeam findById(Integer id) {
         return kboTeamRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.KBO_TEAM_NOT_FOUND));
     }

@@ -1,6 +1,7 @@
 package com.ddoddo.balllog.balllog.model;
 
 import com.ddoddo.balllog.balllog.adapter.dto.BallLogDto;
+import com.ddoddo.balllog.global.entity.BaseTimeEntity;
 import com.ddoddo.balllog.kbo.model.KboTeam;
 import com.ddoddo.balllog.kbo.model.Stadium;
 import com.ddoddo.balllog.kbo.model.StadiumSeatInfo;
@@ -20,7 +21,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BallLog {
+public class BallLog extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +39,7 @@ public class BallLog {
     private StadiumSeatInfo stadiumSeatInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cheaaring_team_id")
+    @JoinColumn(name = "cheering_team_id")
     private KboTeam cheeringTeam;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -63,18 +64,20 @@ public class BallLog {
     @OneToMany(mappedBy = "ballLog")
     private List<BallLogPhoto> photos = new ArrayList<>();
 
-    private InfieldOutfield field;
+    @Enumerated(EnumType.STRING)
+    private FieldType field;
 
     private Integer blockNumber;
 
-    private Integer rowNumber;
+    private Integer seatRowNumber;
 
+    @Enumerated(EnumType.STRING)
     private HomeAway homeAway;
 
     private String companionName;
 
-    @ManyToMany
-    private List<User> companions;
+//    @ManyToMany
+//    private List<User> companions;
 
     private LocalDateTime deletedAt;
 
@@ -93,6 +96,10 @@ public class BallLog {
 
         if (ballLogDto.scoreOpposing() != null) {
             this.scoreOpposing = ballLogDto.scoreOpposing();
+        }
+
+        if (ballLogDto.matchResult() != null) {
+            this.matchResult = ballLogDto.matchResult();
         }
 
         if (ballLogDto.title() != null) {

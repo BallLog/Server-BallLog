@@ -27,7 +27,7 @@ public class FileService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    @Value("${cloud.aws.region.static}")
+    @Value("${cloud.aws.region}")
     private String region;
 
     public void deleteFile(String imgUrl) {

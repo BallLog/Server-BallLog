@@ -9,9 +9,9 @@ import java.util.List;
 
 @Builder
 public record BallLogPatchRequest(
-    Long cheeringTeamId,
+    Integer cheeringTeamId,
 
-    Long opposingTeamId,
+    Integer opposingTeamId,
 
     Integer scoreCheering,
 

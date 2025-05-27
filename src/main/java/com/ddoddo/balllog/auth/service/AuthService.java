@@ -7,6 +7,7 @@ import com.ddoddo.balllog.jwt.service.JwtTokenService;
 import com.ddoddo.balllog.user.model.SocialType;
 import com.ddoddo.balllog.user.model.User;
 import com.ddoddo.balllog.user.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class AuthService {
         return SignInResponse.from(user.getStatus(), jwtTokenService.issueToken(user));
     }
 
+    @Transactional
     public String withdraw() {
         User user = userService.getUser();
 

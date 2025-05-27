@@ -34,6 +34,8 @@ public class JwtTokenService {
                 .user(user)
                 .refreshToken(tokenDto.getRefreshToken())
                 .build();
+        refreshTokenRepository.save(refreshToken);
+
 
         return tokenDto;
     }

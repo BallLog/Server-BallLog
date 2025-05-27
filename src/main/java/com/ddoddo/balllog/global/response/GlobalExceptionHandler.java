@@ -5,6 +5,7 @@ import com.ddoddo.balllog.global.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -52,6 +53,12 @@ public class GlobalExceptionHandler {
         log.error(e.toString(), e);
         return handleExceptionInternal(ErrorCode.INVALID_INPUT_VALUE,
                 e.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    protected ResponseEntity<Object> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        log.error("HttpMessageNotReadableException : {}", e.getMessage());
+        return handleExceptionInternal(ErrorCode.REQUEST_BODY_REQUIRED);
     }
 
     // 그 밖에 발생하는 모든 예외 처리
