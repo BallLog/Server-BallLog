@@ -33,8 +33,7 @@ public record BallLogPostRequest(
 
     LocalDateTime matchDate,
 
-    @NotNull(message = "직관 사진은 최소 1장 이상 업로드 되어야 합니다.")
-    @Size(min =1, max = 4, message = "사진은 최대 4장까지 업로드할 수 있습니다.")
+    @Size(max = 4, message = "사진은 최대 4장까지 업로드할 수 있습니다.")
     List<BallLogPhotoRequest> photos
 ) implements BallLogRequest{
 }
