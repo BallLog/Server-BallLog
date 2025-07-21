@@ -1,6 +1,7 @@
 package com.ddoddo.balllog.balllog.adapter;
 
 import com.ddoddo.balllog.balllog.adapter.dto.BallLogDto;
+import com.ddoddo.balllog.balllog.dto.projection.UserMatchStats;
 import com.ddoddo.balllog.balllog.model.BallLog;
 import com.ddoddo.balllog.balllog.model.MatchResult;
 import com.ddoddo.balllog.balllog.repository.BallLogRepository;
@@ -44,6 +45,10 @@ public class BallLogAdapter {
 
     public Slice<BallLog> findByUserAndMatchResult(User user, MatchResult matchResult, Pageable pageable) {
         return repository.findByUserAndMatchResult(user, matchResult, pageable);
+    }
+
+    public UserMatchStats findUserMatchStats(User user) {
+        return repository.countStatsByUser(user, MatchResult.WIN);
     }
 
     public BallLog update(Long id, BallLogDto ballLogDto) {
