@@ -14,6 +14,7 @@ public record BallLogSimpleResponse(
         Integer scoreOpposing,
         String title,
         String content,
+        Integer stadiumId,
         LocalDateTime matchDate,
         String thumbnailUrl
 ) {
@@ -27,6 +28,7 @@ public record BallLogSimpleResponse(
                 .scoreOpposing(ballLog.getScoreOpposing())
                 .title(ballLog.getTitle())
                 .content(ballLog.getContent())
+                .stadiumId(ballLog.getStadium().getId())
                 .matchDate(ballLog.getMatchDate())
                 .thumbnailUrl(thumbnailUrl)
                 .build();
