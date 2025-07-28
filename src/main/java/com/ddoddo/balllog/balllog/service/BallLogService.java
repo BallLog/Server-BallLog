@@ -51,10 +51,13 @@ public class BallLogService {
         BallLogDto ballLogDto = createBallLogDto(user, request);
         BallLog ballLog = ballLogAdapter.save(ballLogDto);
 
-        List<BallLogPhotoDto> photoDtoList = request.photos().stream()
-                .map(photoRequest -> BallLogPhotoDto.of(ballLog, photoRequest.imgUrl(), photoRequest.sequence()))
-                .toList();
-        List<BallLogPhotoResponse> ballLogPhotoResponseList = ballLogPhotoAdapter.saveBallLogPhotos(photoDtoList);
+        List<BallLogPhotoResponse> ballLogPhotoResponseList = Collections.emptyList();
+        if (request.photos() != null && !request.photos().isEmpty()) {
+            List<BallLogPhotoDto> photoDtoList = request.photos().stream()
+                    .map(photoRequest -> BallLogPhotoDto.of(ballLog, photoRequest.imgUrl(), photoRequest.sequence()))
+                    .toList();
+            ballLogPhotoResponseList = ballLogPhotoAdapter.saveBallLogPhotos(photoDtoList);
+        }
 
         return BallLogFullResponse.of(ballLog, ballLogPhotoResponseList);
     }

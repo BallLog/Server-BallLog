@@ -1,7 +1,9 @@
 package com.ddoddo.balllog.user.controller;
 
 import com.ddoddo.balllog.global.response.DataResponseDto;
+import com.ddoddo.balllog.user.dto.request.ChangeNicknameRequest;
 import com.ddoddo.balllog.user.dto.request.FavoriteKboTeamRequest;
+import com.ddoddo.balllog.user.dto.response.ChangeNicknameResponse;
 import com.ddoddo.balllog.user.dto.response.FavoriteKboTeamResponse;
 import com.ddoddo.balllog.user.service.UserSettingService;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +28,12 @@ public class UserSettingController {
             @RequestBody FavoriteKboTeamRequest request
     ) {
         return DataResponseDto.from(userSettingService.selectFavoriteKboTeam(request));
+    }
+
+    @PatchMapping("/nickname")
+    public DataResponseDto<ChangeNicknameResponse> changeNickname(
+            @RequestBody ChangeNicknameRequest request
+    ) {
+        return DataResponseDto.from(userSettingService.changeNickname(request));
     }
 }

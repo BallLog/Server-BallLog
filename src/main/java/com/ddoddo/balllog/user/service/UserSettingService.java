@@ -2,7 +2,9 @@ package com.ddoddo.balllog.user.service;
 
 import com.ddoddo.balllog.kbo.model.KboTeam;
 import com.ddoddo.balllog.kbo.service.KboTeamService;
+import com.ddoddo.balllog.user.dto.request.ChangeNicknameRequest;
 import com.ddoddo.balllog.user.dto.request.FavoriteKboTeamRequest;
+import com.ddoddo.balllog.user.dto.response.ChangeNicknameResponse;
 import com.ddoddo.balllog.user.dto.response.FavoriteKboTeamResponse;
 import com.ddoddo.balllog.user.model.User;
 import jakarta.transaction.Transactional;
@@ -26,5 +28,13 @@ public class UserSettingService {
         user.updateKboTeam(kboTeam);
 
         return FavoriteKboTeamResponse.from(user);
+    }
+
+    public ChangeNicknameResponse changeNickname(ChangeNicknameRequest requestDto) {
+        User user = userService.getUser();
+
+        user.updateName(requestDto.name());
+
+        return ChangeNicknameResponse.of(user);
     }
 }
