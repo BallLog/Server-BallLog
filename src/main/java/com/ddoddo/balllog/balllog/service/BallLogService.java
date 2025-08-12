@@ -46,7 +46,7 @@ public class BallLogService {
     public BallLogFullResponse createBallLog(BallLogPostRequest request) {
         User user = userService.getUser();
 
-        validateCheeringAndOpposingTeam(user, request.cheeringTeamId(), request.opposingTeamId());
+        validateCheeringAndOpposingTeam(request.cheeringTeamId(), request.opposingTeamId());
 
         BallLogDto ballLogDto = createBallLogDto(user, request);
         BallLog ballLog = ballLogAdapter.save(ballLogDto);
@@ -95,7 +95,7 @@ public class BallLogService {
     public BallLogFullResponse updateBallLog(Long id, BallLogPatchRequest request) {
         User user = userService.getUser();
 
-        validateCheeringAndOpposingTeam(user, request.cheeringTeamId(), request.opposingTeamId());
+        validateCheeringAndOpposingTeam(request.cheeringTeamId(), request.opposingTeamId());
 
         BallLogDto ballLogDto = createBallLogDto(user, request);
         BallLog ballLog = ballLogAdapter.update(id, ballLogDto);
@@ -141,11 +141,7 @@ public class BallLogService {
         );
     }
 
-    private void validateCheeringAndOpposingTeam(User user, Integer cheeringTeamId, Integer opposingTeamId) {
-        if (!Objects.equals(user.getKboTeam().getId(), cheeringTeamId)) {
-            throw new BusinessException(ErrorCode.NOT_MY_CHEERING_TEAM);
-        }
-
+    private void validateCheeringAndOpposingTeam(Integer cheeringTeamId, Integer opposingTeamId) {
         if (Objects.equals(cheeringTeamId, opposingTeamId)) {
             throw new BusinessException(ErrorCode.SAME_TEAM_CONFLICT);
         }
