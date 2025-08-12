@@ -77,9 +77,9 @@ public class BallLogService {
 
         Slice<BallLog> ballLogSlice;
         if (onlyWin != null && onlyWin) {
-            ballLogSlice = ballLogAdapter.findByUser(user, pageable);
-        } else {
             ballLogSlice = ballLogAdapter.findByUserAndMatchResult(user, MatchResult.WIN, pageable);
+        } else {
+            ballLogSlice = ballLogAdapter.findByUser(user, pageable);
         }
 
         List<BallLogSimpleResponse> ballLogResponses = ballLogSlice.stream()
