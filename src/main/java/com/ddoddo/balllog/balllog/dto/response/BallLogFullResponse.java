@@ -19,10 +19,11 @@ public record BallLogFullResponse(
     MatchResult matchResult,
     Integer stadiumId,
     LocalDateTime matchDate,
+    Integer winRate,
     List<BallLogPhotoResponse> photos
 ) {
 
-    public static BallLogFullResponse of(BallLog ballLog, List<BallLogPhotoResponse> photos) {
+    public static BallLogFullResponse of(BallLog ballLog, List<BallLogPhotoResponse> photos, Integer winRate) {
         return  BallLogFullResponse.builder()
                 .id(ballLog.getId())
                 .cheeringTeamId(ballLog.getCheeringTeam().getId())
@@ -34,6 +35,7 @@ public record BallLogFullResponse(
                 .matchDate(ballLog.getMatchDate())
                 .stadiumId(ballLog.getStadium().getId())
                 .matchResult(ballLog.getMatchResult())
+                .winRate(winRate)
                 .photos(photos)
                 .build();
     }

@@ -12,6 +12,7 @@ import com.ddoddo.balllog.balllog.dto.response.BallLogPhotoResponse;
 import com.ddoddo.balllog.balllog.dto.response.BallLogSimpleResponse;
 import com.ddoddo.balllog.balllog.model.BallLog;
 import com.ddoddo.balllog.balllog.model.MatchResult;
+import com.ddoddo.balllog.balllog.util.GameStatsUtils;
 import com.ddoddo.balllog.global.exception.BusinessException;
 import com.ddoddo.balllog.global.exception.ErrorCode;
 import com.ddoddo.balllog.infra.service.FileService;
@@ -46,7 +47,7 @@ public class BallLogService {
     public BallLogFullResponse createBallLog(BallLogPostRequest request) {
         User user = userService.getUser();
 
-        validateCheeringAndOpposingTeam(user, request.cheeringTeamId(), request.opposingTeamId());
+        validateCheeringAndOpposingTeam(request.cheeringTeamId(), request.opposingTeamId());
 
         BallLogDto ballLogDto = createBallLogDto(user, request);
         BallLog ballLog = ballLogAdapter.save(ballLogDto);
@@ -59,7 +60,9 @@ public class BallLogService {
             ballLogPhotoResponseList = ballLogPhotoAdapter.saveBallLogPhotos(photoDtoList);
         }
 
-        return BallLogFullResponse.of(ballLog, ballLogPhotoResponseList);
+        Integer winRate = GameStatsUtils.calculateWinRate(ballLogAdapter.findUserMatchStats(user));
+
+        return BallLogFullResponse.of(ballLog, ballLogPhotoResponseList, winRate);
     }
 
     public BallLogFullResponse getBallLog(Long id) {
@@ -68,7 +71,9 @@ public class BallLogService {
         BallLog ballLog = ballLogAdapter.findById(id);
         List<BallLogPhotoResponse> ballLogPhotoResponseList = ballLogPhotoAdapter.findAllByBallLog(ballLog);
 
-        return BallLogFullResponse.of(ballLog, ballLogPhotoResponseList);
+        Integer winRate = GameStatsUtils.calculateWinRate(ballLogAdapter.findUserMatchStats(user));
+
+        return BallLogFullResponse.of(ballLog, ballLogPhotoResponseList, winRate);
     }
 
     public Slice<BallLogSimpleResponse> getBallLogList(int page, int size, Boolean onlyWin) {
@@ -77,9 +82,9 @@ public class BallLogService {
 
         Slice<BallLog> ballLogSlice;
         if (onlyWin != null && onlyWin) {
-            ballLogSlice = ballLogAdapter.findByUser(user, pageable);
-        } else {
             ballLogSlice = ballLogAdapter.findByUserAndMatchResult(user, MatchResult.WIN, pageable);
+        } else {
+            ballLogSlice = ballLogAdapter.findByUser(user, pageable);
         }
 
         List<BallLogSimpleResponse> ballLogResponses = ballLogSlice.stream()
@@ -95,7 +100,7 @@ public class BallLogService {
     public BallLogFullResponse updateBallLog(Long id, BallLogPatchRequest request) {
         User user = userService.getUser();
 
-        validateCheeringAndOpposingTeam(user, request.cheeringTeamId(), request.opposingTeamId());
+        validateCheeringAndOpposingTeam(request.cheeringTeamId(), request.opposingTeamId());
 
         BallLogDto ballLogDto = createBallLogDto(user, request);
         BallLog ballLog = ballLogAdapter.update(id, ballLogDto);
@@ -108,7 +113,9 @@ public class BallLogService {
             ballLogPhotoResponseList = ballLogPhotoAdapter.updateBallLogPhotos(ballLog.getId(), photoDtoList);
         }
 
-        return  BallLogFullResponse.of(ballLog, ballLogPhotoResponseList);
+        Integer winRate = GameStatsUtils.calculateWinRate(ballLogAdapter.findUserMatchStats(user));
+
+        return  BallLogFullResponse.of(ballLog, ballLogPhotoResponseList, winRate);
     }
 
     public String deleteBallLog(Long id) {
@@ -141,11 +148,7 @@ public class BallLogService {
         );
     }
 
-    private void validateCheeringAndOpposingTeam(User user, Integer cheeringTeamId, Integer opposingTeamId) {
-        if (!Objects.equals(user.getKboTeam().getId(), cheeringTeamId)) {
-            throw new BusinessException(ErrorCode.NOT_MY_CHEERING_TEAM);
-        }
-
+    private void validateCheeringAndOpposingTeam(Integer cheeringTeamId, Integer opposingTeamId) {
         if (Objects.equals(cheeringTeamId, opposingTeamId)) {
             throw new BusinessException(ErrorCode.SAME_TEAM_CONFLICT);
         }

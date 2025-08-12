@@ -1,7 +1,10 @@
 package com.ddoddo.balllog.user.service;
 
+import com.ddoddo.balllog.global.exception.BusinessException;
+import com.ddoddo.balllog.global.exception.ErrorCode;
 import com.ddoddo.balllog.kbo.model.KboTeam;
 import com.ddoddo.balllog.kbo.service.KboTeamService;
+import com.ddoddo.balllog.user.adapter.UserAdapter;
 import com.ddoddo.balllog.user.dto.request.ChangeNicknameRequest;
 import com.ddoddo.balllog.user.dto.request.FavoriteKboTeamRequest;
 import com.ddoddo.balllog.user.dto.response.ChangeNicknameResponse;
@@ -21,6 +24,8 @@ public class UserSettingService {
     private final UserService userService;
     private final KboTeamService kboTeamService;
 
+    private final UserAdapter userAdapter;
+
     public FavoriteKboTeamResponse selectFavoriteKboTeam(FavoriteKboTeamRequest requestDto) {
         KboTeam kboTeam = kboTeamService.getKboTeamById(requestDto.getKboTeamId());
         User user = userService.getUser();
@@ -31,10 +36,17 @@ public class UserSettingService {
     }
 
     public ChangeNicknameResponse changeNickname(ChangeNicknameRequest requestDto) {
-        User user = userService.getUser();
+        validateNicknameUnique(requestDto.name());
 
+        User user = userService.getUser();
         user.updateName(requestDto.name());
 
         return ChangeNicknameResponse.of(user);
+    }
+
+    private void validateNicknameUnique(String nickname) {
+        if (userAdapter.existsByName(nickname)) {
+            throw new BusinessException(ErrorCode.USER_NICKNAME_CAN_NOT_DUPLICATE);
+        }
     }
 }

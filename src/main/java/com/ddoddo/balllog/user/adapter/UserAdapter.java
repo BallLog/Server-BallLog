@@ -17,4 +17,8 @@ public class UserAdapter {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
     }
+
+    public boolean existsByName(String name) {
+        return userRepository.existsByName(name);
+    }
 }
