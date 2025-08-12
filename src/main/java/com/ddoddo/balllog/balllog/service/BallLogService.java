@@ -12,6 +12,7 @@ import com.ddoddo.balllog.balllog.dto.response.BallLogPhotoResponse;
 import com.ddoddo.balllog.balllog.dto.response.BallLogSimpleResponse;
 import com.ddoddo.balllog.balllog.model.BallLog;
 import com.ddoddo.balllog.balllog.model.MatchResult;
+import com.ddoddo.balllog.balllog.util.GameStatsUtils;
 import com.ddoddo.balllog.global.exception.BusinessException;
 import com.ddoddo.balllog.global.exception.ErrorCode;
 import com.ddoddo.balllog.infra.service.FileService;
@@ -59,7 +60,9 @@ public class BallLogService {
             ballLogPhotoResponseList = ballLogPhotoAdapter.saveBallLogPhotos(photoDtoList);
         }
 
-        return BallLogFullResponse.of(ballLog, ballLogPhotoResponseList);
+        Integer winRate = GameStatsUtils.calculateWinRate(ballLogAdapter.findUserMatchStats(user));
+
+        return BallLogFullResponse.of(ballLog, ballLogPhotoResponseList, winRate);
     }
 
     public BallLogFullResponse getBallLog(Long id) {
@@ -68,7 +71,9 @@ public class BallLogService {
         BallLog ballLog = ballLogAdapter.findById(id);
         List<BallLogPhotoResponse> ballLogPhotoResponseList = ballLogPhotoAdapter.findAllByBallLog(ballLog);
 
-        return BallLogFullResponse.of(ballLog, ballLogPhotoResponseList);
+        Integer winRate = GameStatsUtils.calculateWinRate(ballLogAdapter.findUserMatchStats(user));
+
+        return BallLogFullResponse.of(ballLog, ballLogPhotoResponseList, winRate);
     }
 
     public Slice<BallLogSimpleResponse> getBallLogList(int page, int size, Boolean onlyWin) {
@@ -108,7 +113,9 @@ public class BallLogService {
             ballLogPhotoResponseList = ballLogPhotoAdapter.updateBallLogPhotos(ballLog.getId(), photoDtoList);
         }
 
-        return  BallLogFullResponse.of(ballLog, ballLogPhotoResponseList);
+        Integer winRate = GameStatsUtils.calculateWinRate(ballLogAdapter.findUserMatchStats(user));
+
+        return  BallLogFullResponse.of(ballLog, ballLogPhotoResponseList, winRate);
     }
 
     public String deleteBallLog(Long id) {
