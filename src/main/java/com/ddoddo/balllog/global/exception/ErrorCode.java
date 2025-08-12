@@ -56,6 +56,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다."),
     INVALID_USER(HttpStatus.UNAUTHORIZED, "유효하지 않은 회원입니다."),
     SOCIAL_TYPE_NOT_FOUND(HttpStatus.NOT_FOUND, "소셜 로그인 유형을 다시 확인해주세요."),
+    USER_NICKNAME_CAN_NOT_DUPLICATE(HttpStatus.BAD_REQUEST, "중복된 닉네임은 사용할 수 없습니다."),
 
     /**
      * BallLog Error
